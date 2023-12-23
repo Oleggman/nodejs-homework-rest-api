@@ -1,19 +1,22 @@
 import express from 'express';
 import contactsController from '../../controllers/contacts-controller.js';
-import isEmptyBody from '../../middlewares/isEmptyBody.js';
+import isValidId from '../../middlewares/isValidId.js';
+import isEmptyBody from '../../decorators/isEmptyBody.js';
 import validateBody from '../../decorators/validateBody.js';
-import { contactAddSchema, contactUpdateSchema } from '../../schemas/contact-schemas.js';
+import { contactAddSchema, contactUpdateFavoriteSchema, contactUpdateSchema } from '../../models/Contacts.js';
 
 const router = express.Router();
 
 router.get('/', contactsController.getMovies);
 
-router.get('/:contactId', contactsController.getMovieById);
+router.get('/:contactId', isValidId, contactsController.getMovieById);
 
-router.post('/', isEmptyBody, validateBody(contactAddSchema), contactsController.addMovie);
+router.post('/', isEmptyBody('missing fields'), validateBody(contactAddSchema), contactsController.addMovie);
 
-router.put('/:contactId', isEmptyBody, validateBody(contactUpdateSchema), contactsController.updateMovie);
+router.put('/:contactId', isValidId, isEmptyBody('missing fields'), validateBody(contactUpdateSchema), contactsController.updateMovie);
 
-router.delete('/:contactId', contactsController.deleteMovie);
+router.patch('/:contactId/favorite', isValidId, isEmptyBody('missing field favorite'), validateBody(contactUpdateFavoriteSchema), contactsController.updateStatusContact);
+
+router.delete('/:contactId', isValidId, contactsController.deleteMovie);
 
 export default router;
