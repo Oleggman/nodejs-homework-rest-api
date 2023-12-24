@@ -2,12 +2,12 @@ import Contact from '../models/Contacts.js';
 import ctrlWrapper from '../decorators/ctrlWrapper.js';
 import HttpError from '../helpers/HttpError.js';
 
-const getMovies = async (req, res, next) => {
+const getContacts = async (req, res, next) => {
   const contacts = await Contact.find();
   res.json(contacts)
 }
 
-const getMovieById = async (req, res, next) => {
+const getContactById = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await Contact.findById(contactId);
   if (!contact) {
@@ -17,12 +17,12 @@ const getMovieById = async (req, res, next) => {
   res.json(contact)
 }
 
-const addMovie = async (req, res, next) => {
+const addContact = async (req, res, next) => {
   const newContact = await Contact.create(req.body);
   res.status(201).json(newContact);
 }
 
-const updateMovie = async (req, res, next) => {
+const updateContact = async (req, res, next) => {
   const { contactId } = req.params;
   const body = req.body;
   const newContact = await Contact.findByIdAndUpdate(contactId, body);
@@ -44,7 +44,7 @@ const updateStatusContact = async (req, res, next) => {
   res.json(newContact);
 }
 
-const deleteMovie = async (req, res, next) => {
+const deleteContact = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await Contact.findByIdAndDelete(contactId);
   if (!result) {
@@ -55,10 +55,10 @@ const deleteMovie = async (req, res, next) => {
 }
 
 export default {
-  getMovies: ctrlWrapper(getMovies),
-  getMovieById: ctrlWrapper(getMovieById),
-  addMovie: ctrlWrapper(addMovie),
-  updateMovie: ctrlWrapper(updateMovie),
+  getContacts: ctrlWrapper(getContacts),
+  getContactById: ctrlWrapper(getContactById),
+  addContact: ctrlWrapper(addContact),
+  updateContact: ctrlWrapper(updateContact),
   updateStatusContact: ctrlWrapper(updateStatusContact),
-  deleteMovie: ctrlWrapper(deleteMovie),
+  deleteContact: ctrlWrapper(deleteContact),
 }

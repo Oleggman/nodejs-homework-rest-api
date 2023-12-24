@@ -7,16 +7,16 @@ import { contactAddSchema, contactUpdateFavoriteSchema, contactUpdateSchema } fr
 
 const router = express.Router();
 
-router.get('/', contactsController.getMovies);
+router.get('/', contactsController.getContacts);
 
-router.get('/:contactId', isValidId, contactsController.getMovieById);
+router.get('/:contactId', isValidId, contactsController.getContactById);
 
-router.post('/', isEmptyBody('missing fields'), validateBody(contactAddSchema), contactsController.addMovie);
+router.post('/', isEmptyBody('missing fields'), validateBody(contactAddSchema), contactsController.addContact);
 
-router.put('/:contactId', isValidId, isEmptyBody('missing fields'), validateBody(contactUpdateSchema), contactsController.updateMovie);
+router.put('/:contactId', isValidId, isEmptyBody('missing fields'), validateBody(contactUpdateSchema), contactsController.updateContact);
 
 router.patch('/:contactId/favorite', isValidId, isEmptyBody('missing field favorite'), validateBody(contactUpdateFavoriteSchema), contactsController.updateStatusContact);
 
-router.delete('/:contactId', isValidId, contactsController.deleteMovie);
+router.delete('/:contactId', isValidId, contactsController.deleteContact);
 
 export default router;
