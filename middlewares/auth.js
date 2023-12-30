@@ -14,11 +14,12 @@ const auth = async (req, res, next) => {
   if (bearer !== "Bearer") {
     return next(HttpError(401, 'Not authorized'));
   }
-
   try {
     const { id } = jwt.verify(token, JWT_SECRET);
     const user = await User.findById(id);
-    if (!user) {
+    console.log(token);
+    console.log(user);
+    if (!user || !user.token || token !== user.token) {
       return next(HttpError(401, 'Not authorized'));
     }
 
