@@ -19,7 +19,7 @@ const userSchema = new Schema({
     default: "starter"
   },
   token: String
-});
+}, { versionKey: false });
 
 userSchema.post('save', handleSaveError);
 userSchema.pre('findOneAndUpdate', addUpdateSettings);
