@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
 
-import { handleSaveError, addUpdateSettings } from "./hooks";
+import { handleSaveError, addUpdateSettings } from "./hooks.js";
 
 const userSchema = new Schema({
   password: {
@@ -27,22 +27,22 @@ userSchema.post('findOneAndUpdate', handleSaveError);
 
 export const userSignupSchema = Joi.object({
   password: Joi.string().required().messages({
-    'any.required': "missing required field"
+    'any.required': "missing required password field"
   }),
   email: Joi.string().required().messages({
-    'any.required': "missing required field"
+    'any.required': "missing required email field"
   }),
   subscription: Joi.string().valid('starter','pro','business').messages({
-    'any.required': "missing required field"
+    'any': "invalid subscription value"
   }).default('starter'),
 });
 
 export const userSigninSchema = Joi.object({
   password: Joi.string().required().messages({
-    'any.required': "missing required field"
+    'any.required': "missing required password field"
   }),
   email: Joi.string().required().messages({
-    'any.required': "missing required field"
+    'any.required': "missing required email field"
   }),
 });
 
