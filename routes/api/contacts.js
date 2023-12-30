@@ -3,7 +3,7 @@ import contactsController from '../../controllers/contacts-controller.js';
 import isValidId from '../../middlewares/isValidId.js';
 import isEmptyBody from '../../decorators/isEmptyBody.js';
 import validateBody from '../../decorators/validateBody.js';
-import { contactAddSchema, contactUpdateFavoriteSchema, contactUpdateSchema } from '../../models/Contacts.js';
+import { contactAddSchema, contactUpdateFavoriteSchema, contactUpdateSchema } from '../../models/Contact.js';
 
 const router = express.Router();
 
