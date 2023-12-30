@@ -46,6 +46,11 @@ export const userSigninSchema = Joi.object({
   }),
 });
 
+export const updateSubscriptionSchema = Joi.object({
+  subscription: Joi.string().valid('starter','pro','business').messages({
+    'any.required': "subscription field is required"}).required(),
+});
+
 const User = model('user', userSchema);
 
 export default User;
