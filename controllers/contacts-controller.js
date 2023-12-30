@@ -4,7 +4,9 @@ import HttpError from '../helpers/HttpError.js';
 
 const getContacts = async (req, res, next) => {
   const { _id: owner } = req.user;
-  const contacts = await Contact.find({owner}).populate('owner', 'email');
+  const { page = 1, limit = 5 } = req.query;
+  const skip = (page - 1) * limit;
+  const contacts = await Contact.find({owner}, "", {skip, limit}).populate('owner', 'email');
   res.json(contacts)
 }
 
