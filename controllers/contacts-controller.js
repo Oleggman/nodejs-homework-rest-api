@@ -4,9 +4,15 @@ import HttpError from '../helpers/HttpError.js';
 
 const getContacts = async (req, res, next) => {
   const { _id: owner } = req.user;
-  const { page = 1, limit = 5 } = req.query;
+  const { page = 1, limit = 5, favorite } = req.query;
+
   const skip = (page - 1) * limit;
-  const contacts = await Contact.find({owner}, "", {skip, limit}).populate('owner', 'email');
+  const query = { owner };
+  if (favorite) {
+    query.favorite = true;
+  }
+
+  const contacts = await Contact.find(query, "", {skip, limit}).populate('owner', 'email');
   res.json(contacts)
 }
 
