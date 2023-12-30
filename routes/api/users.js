@@ -14,4 +14,6 @@ router.post('/login', isEmptyBody('missing fields'), validateBody(userSigninSche
 
 router.post('/logout', auth, usersController.signout);
 
+router.get('/current', auth, usersController.getCurrent);
+
 export default router;
